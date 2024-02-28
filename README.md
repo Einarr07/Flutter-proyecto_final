@@ -25,7 +25,7 @@
 </p>
 </div>
 
-### Aplicativo de Ubicacion por Zona 🗺️💻🖥️📌 🔗
+### Aplicativo de Ubicacion por Zona 🗺️🖥️📌 🔗
 - Mateo Congo
 - Dilan Flores
 - Nicole Motoche
@@ -52,13 +52,21 @@ Evaluar y demostrar la capacidad de desarrollo de aplicaciones móviles híbrida
 - Validar la precisión y eficiencia del seguimiento de ubicación y el cálculo de áreas en diferentes escenarios y condiciones.
 </details>
 
-## Autores 🫱🏼‍🫲🏽
+#### Explicacion del funcionamiento del proyecto 💻
+
+
+##### Video sobre el funcionamiento del proyecto
+
 <p align='center'>
-  
+<a href="https://www.youtube.com/"><img src="https://github.com/Einarr07/Flutter-proyecto_final/assets/85316345/c142bdc3-0806-48ac-b2d9-279b4a43e04f" /></a><br>
+  <sup> Video </sup>
+</p>
+
+
+## Autores 🫱🏼‍🫲🏽
+
 | [<img src="https://avatars.githubusercontent.com/u/96399138?v=4" width=115><br><sub>Mateo Congo</sub>](https://github.com/Einarr07) | [<img src="https://avatars.githubusercontent.com/u/117755180?v=4" width=115><br><sub>Dilan Flores</sub>](https://github.com/dilan-flores) |  [<img src="https://avatars.githubusercontent.com/u/85316345?v=4" width=115><br><sub>Nicole Motoche</sub>](https://github.com/nicolemotoche29) |  [<img src="https://avatars.githubusercontent.com/u/75103508?v=4" width=115><br><sub>Erick Palomo</sub>](https://github.com/erick200011) |
 | :---: | :---: | :---: | :---: |
-
-</p>
 
 <p align='center'>
 <a href="https://github.com/Einarr07/Flutter-proyecto_final/tree/main"><img src="https://i.ibb.co/4KtpYxb/octocat-clean-mini.png" /></a><br>
