@@ -2,11 +2,7 @@
 <p align='center'>
   
 # 🦉 Escuela Politecnica Nacional 🦉 
-</p>
-</div>
 
-<div>
-<p align='center'>
 <img src="https://github.com/Einarr07/Flutter-proyecto_final/assets/85316345/590ad2e3-1702-494f-9bc8-9fc2e7bb539e" alt="EPN" width="300px">
 </p>
 </div
