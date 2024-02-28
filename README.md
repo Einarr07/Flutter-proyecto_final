@@ -58,7 +58,7 @@ Evaluar y demostrar la capacidad de desarrollo de aplicaciones móviles híbrida
 ##### Video sobre el funcionamiento del proyecto
 
 <p align='center'>
-<a href="https://www.youtube.com/"><img src="https://github.com/Einarr07/Flutter-proyecto_final/assets/85316345/a7310d42-a6d4-4a75-a179-8b11ea6e1118" /></a><br>
+<a href="https://www.youtube.com/"><img src="https://github.com/Einarr07/Flutter-proyecto_final/assets/85316345/695a78b0-db28-452e-8eae-2b3c8ecff492" /></a><br>
   <sup> Video </sup>
 </p>
 
