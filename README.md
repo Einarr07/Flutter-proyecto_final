@@ -6,7 +6,7 @@
 </p>
 </div
 
-#  Escuela de Formacion de Tecnologos
+## Escuela de Formacion de Tecnologos
 
 <div>
 <p align='center'>
@@ -41,11 +41,11 @@ Evaluar y demostrar la capacidad de desarrollo de aplicaciones móviles híbrida
 
 <details>
 <summary> 3.	OBJETIVOS ESPECÍFICOS 🖇️ </summary>
-- a)	Implementar una aplicación móvil que pueda rastrear la ubicación de tres dispositivos de manera simultánea.
-- b)	Integrar servicios en segundo plano para garantizar la continuidad del seguimiento de ubicación incluso cuando la aplicación esté en segundo plano.
-- c)	Desarrollar funcionalidades de mapeo en tiempo real que permitan visualizar el progreso del mapeo de los terrenos.
-- d)	Calcular y mostrar el área de los terrenos mapeados utilizando la información de ubicación recopilada.
-- e)	Validar la precisión y eficiencia del seguimiento de ubicación y el cálculo de áreas en diferentes escenarios y condiciones.
+- Implementar una aplicación móvil que pueda rastrear la ubicación de tres dispositivos de manera simultánea.
+- Integrar servicios en segundo plano para garantizar la continuidad del seguimiento de ubicación incluso cuando la aplicación esté en segundo plano.
+- Desarrollar funcionalidades de mapeo en tiempo real que permitan visualizar el progreso del mapeo de los terrenos.
+- Calcular y mostrar el área de los terrenos mapeados utilizando la información de ubicación recopilada.
+- Validar la precisión y eficiencia del seguimiento de ubicación y el cálculo de áreas en diferentes escenarios y condiciones.
 </details>
 
 ## Autores 🫱🏼‍🫲🏽
