@@ -6,11 +6,22 @@
 </p>
 </div
 
+# Escuela de Foemacion de Tecnologos
+
+<div>
+<p align='center'>
+<img src="https://esfot.epn.edu.ec/images/headers/logo_esfot_buho.png" alt="ESFOT" width="300px">
+</p>
+</div
+
+
+
+
 ## Escuela de Formacion de Tecnologos
 
 <div>
 <p align='center'>
-<img src="https://esfot.epn.edu.ec/images/headers/logo_esfot_buho.png" alt="Esfot" width="300px">
+<img src="" alt="Esfot" width="300px">
 </p>
 </div>
 
