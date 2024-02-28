@@ -21,7 +21,7 @@
 ### Ubicacion por Zona 📍
 <div>
 <p align='center'>
-<img src="https://github.com/Einarr07/juego_sencillo_android/assets/85316345/43da8e5d-815d-4c01-9c3d-dffc85e25ef5" alt="Android" width="300px">
+<img src="https://github.com/Einarr07/Flutter-proyecto_final/assets/85316345/c123e8fe-0e20-45cd-9cf8-a89614598f89" alt="Android" width="300px">
 </p>
 </div>
 
