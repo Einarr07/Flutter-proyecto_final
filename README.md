@@ -6,7 +6,7 @@
 </p>
 </div
 
-# Escuela de Formacion de Tecnologos
+#  Escuela de Formacion de Tecnologos
 
 <div>
 <p align='center'>
@@ -22,13 +22,13 @@
 </p>
 </div>
 
-#### Aplicativo de Ubicacion por Zona 🗺️💻🖥️📌 🔗
+### Aplicativo de Ubicacion por Zona 🗺️💻🖥️📌 🔗
 - Mateo Congo
 - Dilan Flores
 - Nicole Motoche
 - Erick Palomo
 
-##### Detalles del Proyecto 🌐
+#### Detalles del Proyecto 🌐
 <details>
 <summary> 1.	PROPOSITO DE LA PRÁCTICA 💡 </summary>
 El propósito fundamental de este proyecto es desarrollar y evaluar aplicaciones móviles híbridas/nativas siendo el caso del presente proyecto se hará la utilización de Flutter, con servicios en segundo plano para realizar un seguimiento en tiempo real de la ubicación de tres dispositivos móviles. La aplicación se diseñará específicamente para el mapeo eficiente de terrenos, con el objetivo adicional de calcular el área de los terrenos mapeados. Este propósito se alinea con la necesidad de contar con herramientas tecnológicas avanzadas que faciliten y optimicen las actividades de mapeo y cálculo de áreas en diversos sectores como la topografía, la agricultura y la planificación urbana.
@@ -41,11 +41,11 @@ Evaluar y demostrar la capacidad de desarrollo de aplicaciones móviles híbrida
 
 <details>
 <summary> 3.	OBJETIVOS ESPECÍFICOS 🖇️ </summary>
-a)	Implementar una aplicación móvil que pueda rastrear la ubicación de tres dispositivos de manera simultánea.
-b)	Integrar servicios en segundo plano para garantizar la continuidad del seguimiento de ubicación incluso cuando la aplicación esté en segundo plano.
-c)	Desarrollar funcionalidades de mapeo en tiempo real que permitan visualizar el progreso del mapeo de los terrenos.
-d)	Calcular y mostrar el área de los terrenos mapeados utilizando la información de ubicación recopilada.
-e)	Validar la precisión y eficiencia del seguimiento de ubicación y el cálculo de áreas en diferentes escenarios y condiciones.
+- a)	Implementar una aplicación móvil que pueda rastrear la ubicación de tres dispositivos de manera simultánea.
+- b)	Integrar servicios en segundo plano para garantizar la continuidad del seguimiento de ubicación incluso cuando la aplicación esté en segundo plano.
+- c)	Desarrollar funcionalidades de mapeo en tiempo real que permitan visualizar el progreso del mapeo de los terrenos.
+- d)	Calcular y mostrar el área de los terrenos mapeados utilizando la información de ubicación recopilada.
+- e)	Validar la precisión y eficiencia del seguimiento de ubicación y el cálculo de áreas en diferentes escenarios y condiciones.
 </details>
 
 ## Autores 🫱🏼‍🫲🏽
