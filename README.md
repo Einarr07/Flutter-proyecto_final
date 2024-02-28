@@ -42,6 +42,13 @@ Evaluar y demostrar la capacidad de desarrollo de aplicaciones móviles híbrida
 <details>
 <summary> 3.	OBJETIVOS ESPECÍFICOS 🖇️ </summary>
 - Implementar una aplicación móvil que pueda rastrear la ubicación de tres dispositivos de manera simultánea.
+  VVVV
+  VVVVV
+  NNN
+  
+
+
+- I
 - Integrar servicios en segundo plano para garantizar la continuidad del seguimiento de ubicación incluso cuando la aplicación esté en segundo plano.
 - Desarrollar funcionalidades de mapeo en tiempo real que permitan visualizar el progreso del mapeo de los terrenos.
 - Calcular y mostrar el área de los terrenos mapeados utilizando la información de ubicación recopilada.
