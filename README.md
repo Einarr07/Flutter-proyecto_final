@@ -7,6 +7,9 @@
 </p>
 </div
 
+
+---
+
 ## Proyecto Final de Desarrollo de Aplicaciones Móviles 📱
 ### Ubicacion por Zona 📍
 <div>
