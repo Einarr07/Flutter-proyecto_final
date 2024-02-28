@@ -57,5 +57,7 @@ Evaluar y demostrar la capacidad de desarrollo de aplicaciones móviles híbrida
 | [<img src="https://avatars.githubusercontent.com/u/96399138?v=4" width=115><br><sub>Mateo Congo</sub>](https://github.com/Einarr07) | [<img src="https://avatars.githubusercontent.com/u/117755180?v=4" width=115><br><sub>Dilan Flores</sub>](https://github.com/dilan-flores) |  [<img src="https://avatars.githubusercontent.com/u/85316345?v=4" width=115><br><sub>Nicole Motoche</sub>](https://github.com/nicolemotoche29) |  [<img src="https://avatars.githubusercontent.com/u/75103508?v=4" width=115><br><sub>Erick Palomo</sub>](https://github.com/erick200011) |
 | :---: | :---: | :---: | :---: |
 
-<a href="https://github.com/lissy93"><img src="https://i.ibb.co/4KtpYxb/octocat-clean-mini.png" /></a><br>
+<p align='center'>
+<a href="https://github.com/Einarr07/Flutter-proyecto_final/tree/main"><img src="https://i.ibb.co/4KtpYxb/octocat-clean-mini.png" /></a><br>
   <sup> Gracias :)</sup>
+</p>
