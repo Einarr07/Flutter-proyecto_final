@@ -4,7 +4,6 @@ import 'package:zona/IniciarSesion/registro.dart';
 import 'package:zona/IniciarSesion/auxiliar.dart';
 
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/services.dart';
 
 import 'package:zona/Adminsitrador/AdmPage.dart';
 import 'package:zona/Topografo/TopoPage.dart';
@@ -378,7 +377,7 @@ class _LoginState extends State<Login> {
             }
             Navigator.push(
               context,
-              MaterialPageRoute(builder: (context) => PaginaTopografo()),
+              MaterialPageRoute(builder: (context) => UbicacionPage()),
             );
           }
         } else {

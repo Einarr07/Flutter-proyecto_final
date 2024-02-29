@@ -1,138 +1,128 @@
 import 'package:flutter/material.dart';
+import 'package:location/location.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 
-class PaginaTopografo extends StatefulWidget {
-  const PaginaTopografo({Key? key}) : super(key: key);
-
+class UbicacionPage extends StatefulWidget {
   @override
-  _PaginaTopografoState createState() => _PaginaTopografoState();
+  _UbicacionPageState createState() => _UbicacionPageState();
 }
 
-class _PaginaTopografoState extends State<PaginaTopografo> {
-  String latitude = '';
-  String longitude = '';
+class _UbicacionPageState extends State<UbicacionPage> {
+  late bool _locationEnabled;
+  late LatLng _userLocation;
 
-  void getCurrentCoordinates() {
-    // Lógica para obtener coordenadas
-    setState(() {
-      latitude = 'nueva_latitud'; // Reemplaza con valor real
-      longitude = 'nueva_longitud'; // Reemplaza con valor real
-    });
+  @override
+  void initState() {
+    super.initState();
+    _locationEnabled = false;
+    _userLocation = LatLng(0, 0);
+    _checkLocationPermission();
   }
 
-  void openGoogleMaps() {
-    // Lógica para abrir Google Maps
+  Future<void> _checkLocationPermission() async {
+    Location location = Location();
+    bool serviceEnabled = await location.serviceEnabled();
+    if (!serviceEnabled) {
+      serviceEnabled = await location.requestService();
+      if (!serviceEnabled) {
+        return;
+      }
+    }
+
+    PermissionStatus permissionStatus = await location.hasPermission();
+    if (permissionStatus == PermissionStatus.denied) {
+      permissionStatus = await location.requestPermission();
+      if (permissionStatus != PermissionStatus.granted) {
+        return;
+      }
+    }
+
+    setState(() {
+      _locationEnabled = true;
+    });
+    _updateLocation(true);
+  }
+
+  Future<void> _updateLocation(bool enableLocation) async {
+    if (enableLocation) {
+      try {
+        Location location = Location();
+        LocationData locationData = await location.getLocation();
+        setState(() {
+          _userLocation =
+              LatLng(locationData.latitude!, locationData.longitude!);
+        });
+      } catch (e) {
+        // Handle location error
+        print('Error getting location: $e');
+      }
+    }
   }
 
   @override
+
   Widget build(BuildContext context) {
+    
     return Scaffold(
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          Container(
-            padding: EdgeInsets.all(16.0),
-            color: Colors.blue,
-            child: Text(
-              'TOPOGRAFO',
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: 20.0,
-                fontWeight: FontWeight.bold,
-              ),
-              textAlign: TextAlign.center,
-            ),
-          ),
-          Expanded(
-            child: Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: [
-                  ElevatedButton(
-                    onPressed: () {
-                      getCurrentCoordinates();
-                    },
-                    child: Text('Obtener Ubicación'),
-                  ),
-                  SizedBox(height: 16),
-                  Text(
-                    'Coordenadas de la Ubicación',
-                    style: TextStyle(fontWeight: FontWeight.bold),
-                    textAlign: TextAlign.center,
-                  ),
-                  ListTile(
-                    title: Text('Latitud'),
-                    trailing: Text(
-                      '$latitude',
-                      style: TextStyle(color: Colors.red),
-                    ),
-                  ),
-                  ListTile(
-                    title: Text('Longitud'),
-                    trailing: Text(
-                      '$longitude',
-                      style: TextStyle(color: Colors.red),
-                    ),
-                  ),
-                  SizedBox(height: 16),
-                  ElevatedButton(
-                    onPressed: () {
-                      openGoogleMaps();
-                    },
-                    child: Text('Ubicación en Google Maps'),
-                  ),
-                ],
-              ),
-            ),
-          ),
-        ],
-      ),
-    );
-    /*return Scaffold(
       appBar: AppBar(
-        title: Text('Mi Ubicación'),
+        title: Text('Topografos'),
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
+      body: Center(
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            Text('¿Quieres activar la ubicación?'),
             ElevatedButton(
-              onPressed: () {
-                getCurrentCoordinates();
+              onPressed: () async {
+                bool enableLocation = await showDialog(
+                  context: context,
+                  builder: (BuildContext context) {
+                    return AlertDialog(
+                      title: Text('Activar Ubicación'),
+                      content: Text('¿Quieres activar la ubicación?'),
+                      actions: <Widget>[
+                        TextButton(
+                          onPressed: () {
+                            Navigator.of(context).pop(true);
+                          },
+                          child: Text('Sí'),
+                        ),
+                        TextButton(
+                          onPressed: () {
+                            Navigator.of(context).pop(false);
+                          },
+                          child: Text('No'),
+                        ),
+                      ],
+                    );
+                  },
+                );
+
+                if (enableLocation) {
+                  _checkLocationPermission();
+                }
               },
-              child: Text('Obtener Ubicación'),
+              child: Text('Activar Ubicación'),
             ),
-            SizedBox(height: 16),
-            Text(
-              'Coordenadas de la Ubicación',
-              style: TextStyle(fontWeight: FontWeight.bold),
-              textAlign: TextAlign.center,
-            ),
-            ListTile(
-              title: Text('Latitud'),
-              trailing: Text(
-                '$latitude',
-                style: TextStyle(color: Colors.red),
+            if (_locationEnabled)
+              Expanded(
+                child: GoogleMap(
+                  initialCameraPosition: CameraPosition(
+                    target: _userLocation,
+                    zoom: 15,
+                  ),
+                  markers: {
+                    Marker(
+                      markerId: MarkerId('userLocation'),
+                      position: _userLocation,
+                      infoWindow: InfoWindow(title: 'Tu Ubicación'),
+                    ),
+                  },
+                ),
               ),
-            ),
-            ListTile(
-              title: Text('Longitud'),
-              trailing: Text(
-                '$longitude',
-                style: TextStyle(color: Colors.red),
-              ),
-            ),
-            SizedBox(height: 16),
-            ElevatedButton(
-              onPressed: () {
-                openGoogleMaps();
-              },
-              child: Text('Ubicación en Google Maps'),
-            ),
           ],
         ),
       ),
-    );*/
+    );
   }
 }

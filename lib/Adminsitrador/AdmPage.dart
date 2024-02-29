@@ -1,138 +1,97 @@
 import 'package:flutter/material.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class PaginaAdmin extends StatefulWidget {
-  const PaginaAdmin({Key? key}) : super(key: key);
-
   @override
-  _PaginaTopografoState createState() => _PaginaTopografoState();
+  _PaginaAdminState createState() => _PaginaAdminState();
 }
 
-class _PaginaTopografoState extends State<PaginaAdmin> {
-  String latitude = '';
-  String longitude = '';
+class _PaginaAdminState extends State<PaginaAdmin> {
+  final _emailController = TextEditingController();
+  final _passwordController = TextEditingController();
 
-  void getCurrentCoordinates() {
-    // Lógica para obtener coordenadas
-    setState(() {
-      latitude = 'nueva_latitud'; // Reemplaza con valor real
-      longitude = 'nueva_longitud'; // Reemplaza con valor real
-    });
+  Future<void> signUpWithEmailAndPassword(String email, String password) async {
+    try {
+      await FirebaseAuth.instance.createUserWithEmailAndPassword(
+        email: email,
+        password: password,
+      );
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Usuario creado exitosamente')),
+      );
+    } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Error al crear usuario: $e')),
+      );
+    }
   }
 
-  void openGoogleMaps() {
-    // Lógica para abrir Google Maps
+  Future<void> deleteUser(String uid) async {
+    try {
+      await FirebaseFirestore.instance.collection('users').doc(uid).delete();
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Usuario eliminado exitosamente')),
+      );
+    } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Error al eliminar usuario: $e')),
+      );
+    }
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          Container(
-            padding: EdgeInsets.all(16.0),
-            color: Colors.blue,
-            child: Text(
-              'ADMINSITRADOR',
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: 20.0,
-                fontWeight: FontWeight.bold,
-              ),
-              textAlign: TextAlign.center,
-            ),
-          ),
-          Expanded(
-            child: Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: [
-                  ElevatedButton(
-                    onPressed: () {
-                      getCurrentCoordinates();
-                    },
-                    child: Text('Obtener Ubicación'),
-                  ),
-                  SizedBox(height: 16),
-                  Text(
-                    'Coordenadas de la Ubicación',
-                    style: TextStyle(fontWeight: FontWeight.bold),
-                    textAlign: TextAlign.center,
-                  ),
-                  ListTile(
-                    title: Text('Latitud'),
-                    trailing: Text(
-                      '$latitude',
-                      style: TextStyle(color: Colors.red),
-                    ),
-                  ),
-                  ListTile(
-                    title: Text('Longitud'),
-                    trailing: Text(
-                      '$longitude',
-                      style: TextStyle(color: Colors.red),
-                    ),
-                  ),
-                  SizedBox(height: 16),
-                  ElevatedButton(
-                    onPressed: () {
-                      openGoogleMaps();
-                    },
-                    child: Text('Ubicación en Google Maps'),
-                  ),
-                ],
-              ),
-            ),
-          ),
-        ],
-      ),
-    );
-    /*return Scaffold(
-      appBar: AppBar(
-        title: Text('Mi Ubicación'),
-      ),
+      appBar: AppBar(title: Text('Administración de Usuarios')),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            Text('Agregar Usuario', style: TextStyle(fontSize: 20)),
+            TextField(
+              controller: _emailController,
+              decoration: InputDecoration(labelText: 'Correo'),
+            ),
+            TextField(
+              controller: _passwordController,
+              decoration: InputDecoration(labelText: 'Contraseña'),
+              obscureText: true,
+            ),
             ElevatedButton(
               onPressed: () {
-                getCurrentCoordinates();
+                signUpWithEmailAndPassword(_emailController.text, _passwordController.text);
+                _emailController.clear();
+                _passwordController.clear();
               },
-              child: Text('Obtener Ubicación'),
+              child: Text('Agregar'),
             ),
-            SizedBox(height: 16),
-            Text(
-              'Coordenadas de la Ubicación',
-              style: TextStyle(fontWeight: FontWeight.bold),
-              textAlign: TextAlign.center,
-            ),
-            ListTile(
-              title: Text('Latitud'),
-              trailing: Text(
-                '$latitude',
-                style: TextStyle(color: Colors.red),
-              ),
-            ),
-            ListTile(
-              title: Text('Longitud'),
-              trailing: Text(
-                '$longitude',
-                style: TextStyle(color: Colors.red),
-              ),
-            ),
-            SizedBox(height: 16),
-            ElevatedButton(
-              onPressed: () {
-                openGoogleMaps();
+            SizedBox(height: 20),
+            Text('Eliminar Usuario', style: TextStyle(fontSize: 20)),
+            StreamBuilder<QuerySnapshot>(
+              stream: FirebaseFirestore.instance.collection('users').snapshots(),
+              builder: (context, snapshot) {
+                if (snapshot.hasData) {
+                  return Column(
+                    children: snapshot.data!.docs.map((doc) {
+                      return ListTile(
+                        title: Text(doc['email']),
+                        trailing: IconButton(
+                          icon: Icon(Icons.delete),
+                          onPressed: () => deleteUser(doc.id),
+                        ),
+                      );
+                    }).toList(),
+                  );
+                } else {
+                  return CircularProgressIndicator();
+                }
               },
-              child: Text('Ubicación en Google Maps'),
             ),
           ],
         ),
       ),
-    );*/
+    );
   }
 }

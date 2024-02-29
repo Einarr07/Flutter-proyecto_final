@@ -3,7 +3,6 @@ import 'package:flutter/services.dart';
 import 'package:zona/IniciarSesion/login.dart';
 import 'package:zona/IniciarSesion/auxiliar.dart';
 
-import 'package:flutter/services.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 class PaginaRegistro extends StatefulWidget {
