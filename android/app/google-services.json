@@ -1,0 +1,49 @@
+{
+  "project_info": {
+    "project_number": "131778379439",
+    "firebase_url": "https://zona-c4a37-default-rtdb.firebaseio.com",
+    "project_id": "zona-c4a37",
+    "storage_bucket": "zona-c4a37.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:131778379439:android:c14c81c48c44610cf6de5a",
+        "android_client_info": {
+          "package_name": "com.example.zona"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBfQozDHTvY60BkS3SNPMyudVnu4hFmV8I"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:131778379439:android:47d87579a59dcf35f6de5a",
+        "android_client_info": {
+          "package_name": "com.juegoandroid.juego_sencillo"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBfQozDHTvY60BkS3SNPMyudVnu4hFmV8I"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
