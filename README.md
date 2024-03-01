@@ -68,9 +68,9 @@ para clonar el repositorio en la ubicación deseada.
 > Tener en cuenta las versiones mas recientes de Flutter para que el proyecto se ejecute correctamente.
 
 - Navegar al Directorio del Proyecto:
-Ingresa al directorio del proyecto con cd nombre_del_proyecto.
+Ingresa al directorio del proyecto con ` cd nombre_del_proyecto ` .
 
--Instalar Dependencias:
+- Instalar Dependencias:
 Ejecuta ` flutter pub get ` para instalar todas las dependencias necesarias.
 
 - Ejecutar la Aplicación:
