@@ -2,6 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:location/location.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'dart:math' as math;
+import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_database/firebase_database.dart';
+
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
+  runApp(MaterialApp(home: UbicacionPage()));
+}
 
 class UbicacionPage extends StatefulWidget {
   @override
@@ -69,6 +77,7 @@ class _UbicacionPageState extends State<UbicacionPage> {
   }
 
   void _addPolygonPoint(LatLng point) {
+    _saveLocation(point);
     setState(() {
       _polygonPoints.add(point);
       if (_polygonPoints.length >= 3) {
@@ -109,6 +118,14 @@ class _UbicacionPageState extends State<UbicacionPage> {
     return (area.abs() / 2) * 6378137 * 6378137; // Radio medio de la Tierra al cuadrado
   }
 
+  void _saveLocation(LatLng location) {
+    final ref = FirebaseDatabase.instance.reference().child('locations');
+    ref.push().set({
+      'latitude': location.latitude,
+      'longitude': location.longitude,
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -125,12 +142,12 @@ class _UbicacionPageState extends State<UbicacionPage> {
               ),
               markers: _locationEnabled
                   ? {
-                Marker(
-                  markerId: MarkerId('userLocation'),
-                  position: _userLocation,
-                  infoWindow: InfoWindow(title: 'Tu Ubicación'),
-                ),
-              }
+                      Marker(
+                        markerId: MarkerId('userLocation'),
+                        position: _userLocation,
+                        infoWindow: InfoWindow(title: 'Tu Ubicación'),
+                      ),
+                    }
                   : {},
               polygons: _polygons,
               onTap: _addPolygonPoint,
