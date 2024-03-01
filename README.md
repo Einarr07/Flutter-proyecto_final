@@ -76,6 +76,27 @@ Ejecuta ` flutter pub get ` para instalar todas las dependencias necesarias.
 - Ejecutar la Aplicación:
 Usa el comando ` flutter run ` para ejecutar la aplicación en un emulador o dispositivo conectado.
 
+## Pantalla Inicio de Sesion
+![image](https://github.com/Einarr07/Flutter-proyecto_final/assets/85316345/d9a959ca-96f6-4f2f-aa74-c713741ffdbc)
+
+> [!NOTE]
+> CREDENCIALES: 
+- Usuario: admin@gmail.com
+- contraseña: admin123*
+
+## Pantalla dentro de la sesion Administrador
+![image](https://github.com/Einarr07/Flutter-proyecto_final/assets/85316345/cd17e182-b49c-49c8-832b-1c3808cd5b28)
+
+## Pantalla para registrarse
+![image](https://github.com/Einarr07/Flutter-proyecto_final/assets/85316345/ebde37b5-a903-491f-8358-01aad85d03b3)
+
+## Pantalla Inisio de Sesion Topografo
+![image](https://github.com/Einarr07/Flutter-proyecto_final/assets/85316345/b5d60f4f-6f4f-4362-86c7-f1aef689e36e)
+
+> [!NOTE]
+> CREDENCIALES: 
+- Usuario: topo@gmail.com
+- contraseña: topo123*
 
 ##### Video sobre el funcionamiento del proyecto
 
