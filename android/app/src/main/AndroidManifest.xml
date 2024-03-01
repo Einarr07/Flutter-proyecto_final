@@ -9,7 +9,7 @@
         <!-- Configuración de la clave de API de Google Maps -->
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyAXgVGnTrI5n5V7Zb5FOOJCTv_tesYcBD8"/>
+            android:value="AIzaSyCUrfHanelHPPRIXRWk-juJsKOrEodOXGQ"/>
 
         <!-- Configuración de la actividad principal -->
         <activity
