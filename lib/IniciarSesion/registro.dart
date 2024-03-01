@@ -4,6 +4,8 @@ import 'package:zona/IniciarSesion/login.dart';
 import 'package:zona/IniciarSesion/auxiliar.dart';
 
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+
 
 class PaginaRegistro extends StatefulWidget {
   const PaginaRegistro({super.key});
@@ -274,35 +276,44 @@ class PaginaRegistroState extends State<PaginaRegistro> {
 
 
   Future<void> registroNuevoUsuario(BuildContext context) async {
-    User usuario;
-    try {
-      usuario = (await auth.createUserWithEmailAndPassword(
-          email: _emailController.text.trim(),
-          password: _contrasenaController1.text.trim())).user!;
-      mostrarSnackBar("Usuario creado correctamente",context);
-      Navigator.pop(context);
-      Navigator.push(context,
-          MaterialPageRoute(builder: (context) => const MainPage()));
+  User? usuario;
+  try {
+    UserCredential userCredential = await FirebaseAuth.instance.createUserWithEmailAndPassword(
+      email: _emailController.text.trim(),
+      password: _contrasenaController1.text.trim(),
+    );
+    usuario = userCredential.user;
 
-    } on FirebaseAuthException catch(e) {
+    // Agregar el usuario a Firestore con el valor activo
+      await FirebaseFirestore.instance.collection('usuarios').doc(usuario!.uid).set({
+        'email': _emailController.text.trim(),
+        'activo': true, // Puedes establecer el usuario como activo por defecto
+      });
+
+      mostrarSnackBar("Usuario creado correctamente", context);
+      Navigator.pop(context);
+      Navigator.push(context, MaterialPageRoute(builder: (context) => const MainPage()));
+    } on FirebaseAuthException catch (e) {
       if (e.code == "weak-password") {
-        mostrarSnackBar("Contraseña demasidado débil",context);
-      } else if (e.code == "email-already-in-use")
-        mostrarSnackBar("Ese usuario ya existe",context);
-      else
-        mostrarSnackBar("Lo sentimos, hubo un error",context);
-    } catch(e) {
-      mostrarSnackBar("Lo sentimos, hubo un error",context);
-    }
-    finally {
-      setState((){
+        mostrarSnackBar("Contraseña demasiado débil", context);
+      } else if (e.code == "email-already-in-use") {
+        mostrarSnackBar("Ese usuario ya existe", context);
+      } else {
+        mostrarSnackBar("Lo sentimos, hubo un error", context);
+      }
+    } catch (e) {
+      mostrarSnackBar("Lo sentimos, hubo un error", context);
+    } finally {
+      setState(() {
         cambiarVisibilidadIndicadorProgreso();
       });
     }
   }
 
   void cambiarVisibilidadIndicadorProgreso() {
-    visible = !visible;
+    setState(() {
+      visible = !visible;
+    });
   }
 
 

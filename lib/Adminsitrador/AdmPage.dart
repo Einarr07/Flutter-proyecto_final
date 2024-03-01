@@ -13,10 +13,17 @@ class _PaginaAdminState extends State<PaginaAdmin> {
 
   Future<void> signUpWithEmailAndPassword(String email, String password) async {
     try {
-      await FirebaseAuth.instance.createUserWithEmailAndPassword(
+      UserCredential userCredential = await FirebaseAuth.instance.createUserWithEmailAndPassword(
         email: email,
         password: password,
       );
+
+      // Agregar el usuario a Firestore
+      await FirebaseFirestore.instance.collection('usuarios').doc(userCredential.user!.uid).set({
+        'email': email,
+        'activo': true, // Puedes establecer el usuario como activo por defecto
+      });
+
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text('Usuario creado exitosamente')),
       );
@@ -29,13 +36,28 @@ class _PaginaAdminState extends State<PaginaAdmin> {
 
   Future<void> deleteUser(String uid) async {
     try {
-      await FirebaseFirestore.instance.collection('users').doc(uid).delete();
+      await FirebaseFirestore.instance.collection('usuarios').doc(uid).delete();
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text('Usuario eliminado exitosamente')),
       );
     } catch (e) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text('Error al eliminar usuario: $e')),
+      );
+    }
+  }
+
+  Future<void> toggleUserActiveStatus(String uid, bool isActive) async {
+    try {
+      await FirebaseFirestore.instance.collection('usuarios').doc(uid).update({
+        'activo': isActive,
+      });
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Estado de usuario actualizado')),
+      );
+    } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Error al actualizar estado de usuario: $e')),
       );
     }
   }
@@ -68,27 +90,46 @@ class _PaginaAdminState extends State<PaginaAdmin> {
               child: Text('Agregar'),
             ),
             SizedBox(height: 20),
-            Text('Eliminar Usuario', style: TextStyle(fontSize: 20)),
+            Text('Activar/Inavilitar o eliminar un usuario', style: TextStyle(fontSize: 20)),
             StreamBuilder<QuerySnapshot>(
-              stream: FirebaseFirestore.instance.collection('users').snapshots(),
-              builder: (context, snapshot) {
-                if (snapshot.hasData) {
-                  return Column(
-                    children: snapshot.data!.docs.map((doc) {
-                      return ListTile(
-                        title: Text(doc['email']),
-                        trailing: IconButton(
-                          icon: Icon(Icons.delete),
-                          onPressed: () => deleteUser(doc.id),
-                        ),
-                      );
-                    }).toList(),
-                  );
-                } else {
-                  return CircularProgressIndicator();
-                }
-              },
-            ),
+  stream: FirebaseFirestore.instance.collection('usuarios').snapshots(),
+  builder: (context, snapshot) {
+    if (snapshot.hasData) {
+      return Column(
+        children: snapshot.data!.docs.map((doc) {
+          final email = doc.get('email');
+          final activo = doc.get('activo');
+
+          if (email != null) {
+            return ListTile(
+              title: Text(email),
+              subtitle: Text(activo ? 'Activo' : 'Inactivo'),
+              trailing: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  IconButton(
+                    icon: Icon(Icons.toggle_on),
+                    onPressed: () => toggleUserActiveStatus(doc.id, !activo),
+                  ),
+                  IconButton(
+                    icon: Icon(Icons.delete),
+                    onPressed: () => deleteUser(doc.id),
+                  ),
+                ],
+              ),
+            );
+          } else {
+            return SizedBox(); // O cualquier otro widget para manejar el caso sin email
+          }
+        }).toList(),
+      );
+    } else {
+      return CircularProgressIndicator();
+    }
+  },
+),
+
+
           ],
         ),
       ),
