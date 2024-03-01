@@ -1,23 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:location/location.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'dart:math' as math;
+import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_database/firebase_database.dart';
 
-class TopoPageWidget extends StatefulWidget {
-  @override
-  _TopoPageWidgetState createState() => _TopoPageWidgetState();
-}
-
-class _TopoPageWidgetState extends State<TopoPageWidget> {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Plataforma de Ubicación y Mapeo'),
-      ),
-      body: UbicacionPage(),
-    );
-  }
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
+  runApp(MaterialApp(home: UbicacionPage()));
 }
 
 class UbicacionPage extends StatefulWidget {
@@ -86,6 +77,7 @@ class _UbicacionPageState extends State<UbicacionPage> {
   }
 
   void _addPolygonPoint(LatLng point) {
+    _saveLocation(point);
     setState(() {
       _polygonPoints.add(point);
       if (_polygonPoints.length >= 3) {
@@ -126,70 +118,83 @@ class _UbicacionPageState extends State<UbicacionPage> {
     return (area.abs() / 2) * 6378137 * 6378137; // Radio medio de la Tierra al cuadrado
   }
 
+  void _saveLocation(LatLng location) {
+    final ref = FirebaseDatabase.instance.reference().child('locations');
+    ref.push().set({
+      'latitude': location.latitude,
+      'longitude': location.longitude,
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: <Widget>[
-        Expanded(
-          child: GoogleMap(
-            initialCameraPosition: CameraPosition(
-              target: LatLng(0, 0), // Ubicación inicial (ecuador)
-              zoom: 2,
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Plataforma de Ubicación y Mapeo'),
+      ),
+      body: Column(
+        children: <Widget>[
+          Expanded(
+            child: GoogleMap(
+              initialCameraPosition: CameraPosition(
+                target: LatLng(0, 0), // Ubicación inicial (ecuador)
+                zoom: 2,
+              ),
+              markers: _locationEnabled
+                  ? {
+                      Marker(
+                        markerId: MarkerId('userLocation'),
+                        position: _userLocation,
+                        infoWindow: InfoWindow(title: 'Tu Ubicación'),
+                      ),
+                    }
+                  : {},
+              polygons: _polygons,
+              onTap: _addPolygonPoint,
             ),
-            markers: _locationEnabled
-                ? {
-                    Marker(
-                      markerId: MarkerId('userLocation'),
-                      position: _userLocation,
-                      infoWindow: InfoWindow(title: 'Tu Ubicación'),
-                    ),
-                  }
-                : {},
-            polygons: _polygons,
-            onTap: _addPolygonPoint,
           ),
-        ),
-        Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: <Widget>[
-              ElevatedButton(
-                onPressed: () {
-                  setState(() {
-                    _polygons.clear();
-                    _polygonPoints.clear();
-                  });
-                },
-                child: Text('Limpiar'),
-              ),
-              ElevatedButton(
-                onPressed: () {
-                  double area = _calculatePolygonArea();
-                  showDialog(
-                    context: context,
-                    builder: (BuildContext context) {
-                      return AlertDialog(
-                        title: Text('Área del terreno'),
-                        content: Text('El área del terreno es: $area'),
-                        actions: <Widget>[
-                          TextButton(
-                            onPressed: () {
-                              Navigator.of(context).pop();
-                            },
-                            child: Text('Aceptar'),
-                          ),
-                        ],
-                      );
-                    },
-                  );
-                },
-                child: Text('Calcular Área'),
-              ),
-            ],
+          Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: <Widget>[
+                ElevatedButton(
+                  onPressed: () {
+                    setState(() {
+                      _polygons.clear();
+                      _polygonPoints.clear();
+                    });
+                  },
+                  child: Text('Limpiar'),
+                ),
+                ElevatedButton(
+                  onPressed: () {
+                    double area = _calculatePolygonArea();
+                    showDialog(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return AlertDialog(
+                          title: Text('Área del terreno'),
+                          content: Text('El área del terreno es: $area'),
+                          actions: <Widget>[
+                            TextButton(
+                              onPressed: () {
+                                Navigator.of(context).pop();
+                              },
+                              child: Text('Aceptar'),
+                            ),
+                          ],
+                        );
+                      },
+                    );
+                  },
+                  child: Text('Calcular Área'),
+                ),
+              ],
+            ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 }
