@@ -51,7 +51,13 @@ Evaluar y demostrar la capacidad de desarrollo de aplicaciones móviles híbrida
 - Validar la precisión y eficiencia del seguimiento de ubicación y el cálculo de áreas en diferentes escenarios y condiciones.
 </details>
 
-#### Explicacion del funcionamiento del proyecto 💻
+#### Funcionamiento del proyecto 💻
+- Requisitos Previos:
+Asegúrarse de tener Flutter y Dart instalados en la máquina.
+
+- Clonar el Repositorio:
+Copia el enlace del repositorio desde GitHub.
+Abre la terminal y ejecuta `git clone https://github.com/Einarr07/Flutter-proyecto_final.git` para clonar el repositorio en la ubicación deseada.
 
 
 ##### Video sobre el funcionamiento del proyecto
