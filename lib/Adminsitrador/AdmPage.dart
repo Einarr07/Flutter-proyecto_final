@@ -16,6 +16,7 @@ class _PaginaAdminState extends State<PaginaAdmin> {
   late DatabaseReference _usuariosRef;
   GoogleMapController? _mapController;
   Location _location = Location();
+  Set<Marker> _markers = {};
 
   @override
   void initState() {
@@ -85,6 +86,21 @@ class _PaginaAdminState extends State<PaginaAdmin> {
         SnackBar(content: Text('Error al actualizar estado de usuario: $e')),
       );
     }
+  }
+
+  double _calculatePolygonArea(Set<Marker> markers) {
+    if (markers.length < 3) return 0;
+
+    final List<LatLng> points = markers.map((marker) => marker.position).toList();
+    double area = 0;
+
+    for (int i = 0; i < points.length; i++) {
+      final LatLng point1 = points[i];
+      final LatLng point2 = points[(i + 1) % points.length];
+      area += (point1.latitude + point2.latitude) * (point1.longitude - point2.longitude);
+    }
+
+    return area.abs() / 2;
   }
 
   @override
@@ -166,7 +182,39 @@ class _PaginaAdminState extends State<PaginaAdmin> {
                 },
                 myLocationEnabled: true,
                 myLocationButtonEnabled: true,
+                onTap: (LatLng position) {
+                  setState(() {
+                    _markers.add(
+                      Marker(
+                        markerId: MarkerId(position.toString()),
+                        position: position,
+                      ),
+                    );
+                  });
+                },
+                markers: _markers,
               ),
+            ),
+            SizedBox(height: 20),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                ElevatedButton(
+                  onPressed: () {
+                    final area = _calculatePolygonArea(_markers);
+                    ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Área del polígono: $area')));
+                  },
+                  child: Text('Calcular Área'),
+                ),
+                ElevatedButton(
+                  onPressed: () {
+                    setState(() {
+                      _markers.clear();
+                    });
+                  },
+                  child: Text('Limpiar Puntos'),
+                ),
+              ],
             ),
           ],
         ),
