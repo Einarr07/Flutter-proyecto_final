@@ -57,7 +57,13 @@ Asegúrarse de tener Flutter y Dart instalados en la máquina.
 
 - Clonar el Repositorio:
 Copia el enlace del repositorio desde GitHub.
-Abre la terminal y ejecuta `git clone https://github.com/Einarr07/Flutter-proyecto_final.git` para clonar el repositorio en la ubicación deseada.
+Abre la terminal y ejecuta
+`git clone https://github.com/Einarr07/Flutter-proyecto_final.git`
+para clonar el repositorio en la ubicación deseada.
+> [!WARNING]
+> Tener en cuenta las versiones mas recientes de Flutter.
+
+- 
 
 
 ##### Video sobre el funcionamiento del proyecto
