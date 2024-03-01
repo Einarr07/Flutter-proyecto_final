@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_database/firebase_database.dart';
 
 class PaginaAdmin extends StatefulWidget {
   @override
@@ -10,6 +11,8 @@ class PaginaAdmin extends StatefulWidget {
 class _PaginaAdminState extends State<PaginaAdmin> {
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
+
+  late DatabaseReference _usuariosRef;
 
   Future<void> signUpWithEmailAndPassword(String email, String password) async {
     try {
@@ -21,7 +24,7 @@ class _PaginaAdminState extends State<PaginaAdmin> {
       // Agregar el usuario a Firestore
       await FirebaseFirestore.instance.collection('usuarios').doc(userCredential.user!.uid).set({
         'email': email,
-        'activo': true, // Puedes establecer el usuario como activo por defecto
+        'activo': false, // Puedes establecer el usuario como activo por defecto
       });
 
       ScaffoldMessenger.of(context).showSnackBar(
@@ -48,19 +51,33 @@ class _PaginaAdminState extends State<PaginaAdmin> {
   }
 
   Future<void> toggleUserActiveStatus(String uid, bool isActive) async {
-    try {
-      await FirebaseFirestore.instance.collection('usuarios').doc(uid).update({
-        'activo': isActive,
+  try {
+    await FirebaseFirestore.instance.collection('usuarios').doc(uid).update({
+      'activo': isActive,
+    });
+
+    // Si el usuario se activa, actualizar su ubicación en tiempo real
+    if (isActive) {
+      final user = await FirebaseFirestore.instance.collection('usuarios').doc(uid).get();
+      final location = user.data()!['activo'];
+      await _usuariosRef.update({
+        'activo': {
+          'latitude': location['latitude'],
+          'longitude': location['longitude'],
+        },
       });
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Estado de usuario actualizado')),
-      );
-    } catch (e) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Error al actualizar estado de usuario: $e')),
-      );
     }
+
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(content: Text('Estado de usuario actualizado')),
+    );
+  } catch (e) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(content: Text('Error al actualizar estado de usuario: $e')),
+    );
   }
+}
+
 
   @override
   Widget build(BuildContext context) {
@@ -92,7 +109,7 @@ class _PaginaAdminState extends State<PaginaAdmin> {
             SizedBox(height: 20),
             Text('Activar/Inavilitar o eliminar un usuario', style: TextStyle(fontSize: 20)),
             StreamBuilder<QuerySnapshot>(
-  stream: FirebaseFirestore.instance.collection('usuarios').snapshots(),
+  stream: FirebaseFirestore.instance.collection('usuarios').where('activo', isEqualTo: true).snapshots(),
   builder: (context, snapshot) {
     if (snapshot.hasData) {
       return Column(
@@ -128,6 +145,7 @@ class _PaginaAdminState extends State<PaginaAdmin> {
     }
   },
 ),
+
 
 
           ],
