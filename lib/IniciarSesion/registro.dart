@@ -287,7 +287,7 @@ class PaginaRegistroState extends State<PaginaRegistro> {
     // Agregar el usuario a Firestore con el valor activo
       await FirebaseFirestore.instance.collection('usuarios').doc(usuario!.uid).set({
         'email': _emailController.text.trim(),
-        'activo': false, // Puedes establecer el usuario como activo por defecto
+        'activo': true, // Puedes establecer el usuario como activo por defecto
       });
 
       mostrarSnackBar("Usuario creado correctamente", context);
