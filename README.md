@@ -80,7 +80,7 @@ Usa el comando ` flutter run ` para ejecutar la aplicación en un emulador o dis
 ##### Video sobre el funcionamiento del proyecto
 
 <p align='center'>
-<a href="https://www.youtube.com/"><img src="https://github.com/Einarr07/Flutter-proyecto_final/assets/85316345/695a78b0-db28-452e-8eae-2b3c8ecff492" /></a><br>
+<a href="https://youtu.be/KOCedkSD5Ng"><img src="https://github.com/Einarr07/Flutter-proyecto_final/assets/85316345/695a78b0-db28-452e-8eae-2b3c8ecff492" /></a><br>
   <sup> Video </sup>
 </p>
 
