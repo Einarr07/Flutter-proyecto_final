@@ -65,13 +65,16 @@ git clone https://github.com/Einarr07/Flutter-proyecto_final.git
 para clonar el repositorio en la ubicación deseada.
 
 > [!WARNING]
-> Tener en cuenta las versiones mas recientes de Flutter.
+> Tener en cuenta las versiones mas recientes de Flutter para que el proyecto se ejecute correctamente.
 
 - Navegar al Directorio del Proyecto:
 Ingresa al directorio del proyecto con cd nombre_del_proyecto.
 
 -Instalar Dependencias:
-Ejecuta ```bash flutter pub get ``` para instalar todas las dependencias necesarias.
+Ejecuta ` flutter pub get ` para instalar todas las dependencias necesarias.
+
+- Ejecutar la Aplicación:
+Usa el comando ` flutter run ` para ejecutar la aplicación en un emulador o dispositivo conectado.
 
 
 ##### Video sobre el funcionamiento del proyecto
